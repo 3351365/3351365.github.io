@@ -16,7 +16,7 @@ cd /tmp
 apt-get -q update
 apt-get install -y --no-install-recommends -f -qq apg asciidoc debhelper po-debconf intltool-debian libev-dev libpcre3-dev pkg-config xmlto libcap2-bin libpam-cap
 
-DebList="libc-bin_2.28-10+deb10u1_$Bit.deb libc6_2.28-10+deb10u1_$Bit.deb locales-all_2.28-10+deb10u1_$Bit.deb libc-dev-bin_2.28-10+deb10u1_$Bit.deb libc6-dev_2.28-10+deb10u1_$Bit.deb libudns0_0.4-1+b1_$Bit.deb libc-ares2_1.17.1-1~bpo10+1_$Bit.deb libc-ares-dev_1.17.1-1~bpo10+1_$Bit.deb libsodium23_1.0.17-1_$Bit.deb libsodium-dev_1.0.17-1_$Bit.deb libcork16_0.15.0+ds-12_$Bit.deb libcork-dev_0.15.0+ds-12_$Bit.deb libcorkipset1_1.1.1+20150311-8_$Bit.deb libcorkipset-dev_1.1.1+20150311-8_$Bit.deb libbloom1_1.6-3~bpo10+1_$Bit.deb libbloom-dev_1.5-5_$Bit.deb libmbedcrypto3_2.16.0-1_$Bit.deb libmbedx509-0_2.16.0-1_$Bit.deb libmbedtls12_2.16.0-1_$Bit.deb libmbedtls-dev_2.16.0-1_$Bit.deb shadowsocks-libev_3.3.5+ds-4~bpo10+1_$Bit.deb simple-obfs_0.0.5-5_$Bit.deb"
+DebList="libc-bin_2.28-10+deb10u1_$Bit.deb libc6_2.28-10+deb10u1_$Bit.deb locales-all_2.28-10+deb10u1_$Bit.deb libc-dev-bin_2.28-10+deb10u1_$Bit.deb libc6-dev_2.28-10+deb10u1_$Bit.deb libudns0_0.4-1+b1_$Bit.deb libc-ares2_1.17.1-1~bpo10+1_$Bit.deb libc-ares-dev_1.17.1-1~bpo10+1_$Bit.deb libsodium23_1.0.17-1_$Bit.deb libsodium-dev_1.0.17-1_$Bit.deb libcork16_0.15.0+ds-12_$Bit.deb libcork-dev_0.15.0+ds-12_$Bit.deb libcorkipset1_1.1.1+20150311-8_$Bit.deb libcorkipset-dev_1.1.1+20150311-8_$Bit.deb libbloom1_1.6-3~bpo10+1_$Bit.deb libbloom-dev_1.5-5_$Bit.deb libmbedcrypto3_2.16.0-1_$Bit.deb libmbedx509-0_2.16.0-1_$Bit.deb libmbedtls12_2.16.0-1_$Bit.deb libmbedtls-dev_2.16.0-1_$Bit.deb shadowsocks-libev_3.2.5+ds-1_$Bit.deb simple-obfs_0.0.5-5_$Bit.deb"
 
 for DebINS in `echo $DebList`
 do
