@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 arch="$(dpkg --print-architecture)"
 [ -n "$arch" ] || exit 1
 [ "$arch" == 'amd64' -o "$arch" == 'i386' ] || exit 1
