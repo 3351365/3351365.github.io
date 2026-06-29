@@ -1,58 +1,58 @@
 #!/usr/bin/env bash
-# Ô­½Å±¾À´Ô´: moerats
+# åŸè„šæœ¬æ¥æº: moerats
 
 Green="\033[32m"
 Font="\033[0m"
 Red="\033[31m" 
 
-# ¼ì²érootÈ¨ÏŞºÍOVZ»·¾³
+# æ£€æŸ¥rootæƒé™å’ŒOVZç¯å¢ƒ
 root_need(){ [[ $EUID -ne 0 ]] && echo -e "${Red}Error:This script must be run as root!${Font}" && exit 1; }
-ovz_no(){ [[ -d "/proc/vz" ]] && echo -e "${Red}Your VPS is based on OpenVZ£¬not supported!${Font}" && exit 1; }
+ovz_no(){ [[ -d "/proc/vz" ]] && echo -e "${Red}Your VPS is based on OpenVZï¼Œnot supported!${Font}" && exit 1; }
 
-# Ìí¼Óswap
+# æ·»åŠ swap
 add_swap(){
-    echo -e "${Green}ÇëÊäÈëĞèÒªÌí¼ÓµÄswap£¬½¨ÒéÎªÄÚ´æµÄ2±¶£¡${Font}"
-    read -p "ÇëÊäÈëswapÊıÖµ:" swapsize
+    echo -e "${Green}è¯·è¾“å…¥éœ€è¦æ·»åŠ çš„swapï¼Œå»ºè®®ä¸ºå†…å­˜çš„2å€ï¼${Font}"
+    read -p "è¯·è¾“å…¥swapæ•°å€¼:" swapsize
     grep -q "swapfile" /etc/fstab
     if [ $? -ne 0 ]; then
-        echo -e "${Green}swapfileÎ´·¢ÏÖ£¬ÕıÔÚÎªÆä´´½¨swapfile${Font}"
-        # ĞŞÕı£ºÊ¹ÓÃddÃüÁî´´½¨Swap£¬¼æÈİDebian 13
+        echo -e "${Green}swapfileæœªå‘ç°ï¼Œæ­£åœ¨ä¸ºå…¶åˆ›å»ºswapfile${Font}"
+        # ä¿®æ­£ï¼šä½¿ç”¨ddå‘½ä»¤åˆ›å»ºSwapï¼Œå…¼å®¹Debian 13
         dd if=/dev/zero of=/swapfile bs=1M count=${swapsize}
         chmod 600 /swapfile
         mkswap /swapfile
         swapon /swapfile
         echo '/swapfile none swap defaults 0 0' >> /etc/fstab
-        echo -e "${Green}swap´´½¨³É¹¦£¬²¢²é¿´ĞÅÏ¢£º${Font}"
+        echo -e "${Green}swapåˆ›å»ºæˆåŠŸï¼Œå¹¶æŸ¥çœ‹ä¿¡æ¯ï¼š${Font}"
         cat /proc/swaps
         cat /proc/meminfo | grep Swap
     else
-        echo -e "${Red}swapfileÒÑ´æÔÚ£¬ÇëÏÈÉ¾³ıºóÔÙÉèÖÃ£¡${Font}"
+        echo -e "${Red}swapfileå·²å­˜åœ¨ï¼Œè¯·å…ˆåˆ é™¤åå†è®¾ç½®ï¼${Font}"
     fi
 }
 
-# É¾³ıswap
+# åˆ é™¤swap
 del_swap(){
     grep -q "swapfile" /etc/fstab
     if [ $? -eq 0 ]; then
-        echo -e "${Green}swapfileÒÑ·¢ÏÖ£¬ÕıÔÚ½«ÆäÒÆ³ı...${Font}"
+        echo -e "${Green}swapfileå·²å‘ç°ï¼Œæ­£åœ¨å°†å…¶ç§»é™¤...${Font}"
         sed -i '/swapfile/d' /etc/fstab
         swapoff -a
         rm -f /swapfile
-        echo -e "${Green}swapÒÑÉ¾³ı£¡${Font}"
+        echo -e "${Green}swapå·²åˆ é™¤ï¼${Font}"
     else
-        echo -e "${Red}swapfileÎ´·¢ÏÖ£¬É¾³ıÊ§°Ü£¡${Font}"
+        echo -e "${Red}swapfileæœªå‘ç°ï¼Œåˆ é™¤å¤±è´¥ï¼${Font}"
     fi
 }
 
-# ²Ëµ¥Ñ¡Ôñ
-echo -e "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"
-echo -e "${Green}Linux VPSÒ»¼üÌí¼Ó/É¾³ıswap½Å±¾ (ĞŞÕı°æ)${Font}"
-echo -e "${Green}1¡¢Ìí¼Óswap${Font}"
-echo -e "${Green}2¡¢É¾³ıswap${Font}"
-echo -e "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"
-read -p "ÇëÊäÈëÊı×Ö [1-2]:" num
+# èœå•é€‰æ‹©
+echo -e "â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”"
+echo -e "${Green}Linux VPSä¸€é”®æ·»åŠ /åˆ é™¤swapè„šæœ¬ (ä¿®æ­£ç‰ˆ)${Font}"
+echo -e "${Green}1ã€æ·»åŠ swap${Font}"
+echo -e "${Green}2ã€åˆ é™¤swap${Font}"
+echo -e "â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”"
+read -p "è¯·è¾“å…¥æ•°å­— [1-2]:" num
 case "$num" in
     1) add_swap ;;
     2) del_swap ;;
-    *) echo -e "${Red}ÇëÊäÈëÕıÈ·Êı×Ö [1-2]${Font}" ;;
+    *) echo -e "${Red}è¯·è¾“å…¥æ­£ç¡®æ•°å­— [1-2]${Font}" ;;
 esac
